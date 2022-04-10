@@ -1,0 +1,26 @@
+version: '3'
+
+networks:
+  iam_network:
+    name: iam_network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: postgres_data
+  
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+    networks:
+      - iam_network
+    ports:
+      - 5432:5432
+    restart: always
