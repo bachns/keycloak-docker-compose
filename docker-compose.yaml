@@ -34,8 +34,8 @@ services:
     networks:
       - iam_network
     volumes:
-      - /Users/bachns/workspace/lab/iam/cert/keycloak.local.crt:/etc/x509/https/tls.crt
-      - /Users/bachns/workspace/lab/iam/cert/keycloak.local.key:/etc/x509/https/tls.key
+      - $PWD/cert/keycloak.local.crt:/etc/x509/https/tls.crt
+      - $PWD/cert/keycloak.local.key:/etc/x509/https/tls.key
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
