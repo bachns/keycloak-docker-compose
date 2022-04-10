@@ -10,6 +10,7 @@ volumes:
     name: postgres_data
   
 services:
+  # PostgreSQL
   postgres:
     container_name: postgres
     image: postgres
@@ -23,4 +24,25 @@ services:
       - iam_network
     ports:
       - 5432:5432
+    restart: always
+  
+  # Keycloak
+  keycloak:
+    container_name: keycloak
+    build: .
+    image: keycloak:build
+    networks:
+      - iam_network
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=postgres
+      - DB_ADDR=postgres
+      - DB_USER=keycloak
+      - DB_PASSWORD=keycloak
+      - DB_DATABASE=keycloak
+    depends_on:
+      - postgres
+    ports:
+      - 80:8080
     restart: always
