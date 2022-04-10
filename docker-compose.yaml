@@ -6,24 +6,25 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
-    name: postgres_data
+  mariadb_data:
+    name: mariadb_data
   
 services:
-  # PostgreSQL
-  postgres:
-    container_name: postgres
-    image: postgres
+  # Mariadb
+  mariadb:
+    container_name: mariadb
+    image: mariadb
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mariadb_data:/var/lib/mysql
     environment:
-      - POSTGRES_DB=keycloak
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=keycloak
+      - MARIADB_ROOT_PASSWORD=123ewq
+      - MARIADB_DATABASE=keycloak
+      - MARIADB_USER=keycloak
+      - MARIADB_PASSWORD=keycloak
     networks:
       - iam_network
     ports:
-      - 5432:5432
+      - 3306:3306
     restart: always
   
   # Keycloak
@@ -39,13 +40,13 @@ services:
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
-      - DB_VENDOR=postgres
-      - DB_ADDR=postgres
+      - DB_VENDOR=mariadb
+      - DB_ADDR=mariadb
       - DB_USER=keycloak
       - DB_PASSWORD=keycloak
       - DB_DATABASE=keycloak
     depends_on:
-      - postgres
+      - mariadb
     ports:
       - 443:8443
     restart: always
