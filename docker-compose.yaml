@@ -33,6 +33,9 @@ services:
     image: keycloak:build
     networks:
       - iam_network
+    volumes:
+      - /Users/bachns/workspace/lab/iam/keycloak.local.crt:/etc/x509/https/tls.crt
+      - /Users/bachns/workspace/lab/iam/keycloak.local.key:/etc/x509/https/tls.key
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
@@ -44,5 +47,5 @@ services:
     depends_on:
       - postgres
     ports:
-      - 80:8080
+      - 443:8443
     restart: always
