@@ -29,13 +29,13 @@ services:
   # Keycloak
   keycloak:
     container_name: keycloak
-    build: .
+    build: keycloak-build/.
     image: keycloak:build
     networks:
       - iam_network
     volumes:
-      - /Users/bachns/workspace/lab/iam/keycloak.local.crt:/etc/x509/https/tls.crt
-      - /Users/bachns/workspace/lab/iam/keycloak.local.key:/etc/x509/https/tls.key
+      - /Users/bachns/workspace/lab/iam/cert/keycloak.local.crt:/etc/x509/https/tls.crt
+      - /Users/bachns/workspace/lab/iam/cert/keycloak.local.key:/etc/x509/https/tls.key
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
