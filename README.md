@@ -1,4 +1,4 @@
-# Setup an IAM system using Docker
+# Setup an IAM system using Keycloak docker iamge
 
 Insert new domain to hosts file
 ```
